@@ -5,7 +5,7 @@ import moment from 'moment';
 import Swal from 'sweetalert2';
 import { uiCloseModal } from '../../actions/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { calendarAddNew, calendarCleanActive, calendarUpdateEvent } from '../../actions/calendar';
+import { startCalendarAddNew, calendarCleanActive, startCalendarUpdateEvent } from '../../actions/calendar';
 
 const customStyles = {
     content: {
@@ -56,9 +56,7 @@ export const CalendarModal = () => {
 
    const handleSubmitForm = (e) => {
        e.preventDefault();
-       console.log(formValues)
        if (momentStart.isSameOrAfter(momentEnd)){
-           console.log(momentStart, momentEnd)
            Swal.fire('Error', 'End date must be after Start date', 'error')
            return closeModal();
        }
@@ -68,16 +66,9 @@ export const CalendarModal = () => {
        }
 
        if(activeEvent){
-            dispatch(calendarUpdateEvent(formValues))
+            dispatch(startCalendarUpdateEvent(formValues))
         } else{
-           dispatch(calendarAddNew({
-                ...formValues,
-                id: new Date().getTime(),
-                user:{
-                    uid: '3as1df8asdf8',
-                    name: 'Colosio'
-                }
-        }));
+           dispatch(startCalendarAddNew(formValues));
         }
        setTitleValid(true);
        closeModal();
@@ -97,7 +88,6 @@ export const CalendarModal = () => {
         dispatch(calendarCleanActive());
     }
     const handleStartDate = (e) => {
-        console.log(e);
         setDateStart(e);
         setFormValues( {
             ...formValues,
@@ -105,7 +95,6 @@ export const CalendarModal = () => {
         } );
     }
     const handleEndDate = (e) => {
-        console.log(e);
         setDateEnd(e);
         setFormValues( {
             ...formValues,

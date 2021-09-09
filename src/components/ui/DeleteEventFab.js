@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { calendarCleanActive, calendarDeleteEvent } from '../../actions/calendar';
+import { startCalendarDeleteEvent } from '../../actions/calendar';
 
 export const DeleteEventFab = () => {
 
     // const {activeEvent} = useSelector(state => state.calendar);
     const dispatch = useDispatch();
     const handleDeleteEvent = () => {
-        dispatch(calendarDeleteEvent());
+        dispatch(startCalendarDeleteEvent());
     }
 
     return (

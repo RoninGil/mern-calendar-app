@@ -4,10 +4,13 @@ export const types = {
 
 
     calendarSetActive:'[CALENDAR] Set Active',
+    eventStartAddNew: '[CALENDAR] Start add new',
     calendarAddNew: '[CALENDAR] Add New',
     calendarCleanActive: '[CALENDAR] Clean Active Note',
     calendarUpdateEvent: '[CALENDAR] Update Event',
     calendarDeleteEvent: '[CALENDAR] Delete Event',
+    calendarLoaded: '[CALENDAR] Load events',
+    calendarCleanAll: '[CALENDAR] Clear state',
 
 
     authCheckingFinish: '[auth] Finish checking login state',

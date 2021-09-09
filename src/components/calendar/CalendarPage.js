@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavBar } from '../ui/NavBar';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 
@@ -11,7 +11,7 @@ import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { uiOpenModal } from '../../actions/ui';
-import { calendarCleanActive, calendarSetActive } from '../../actions/calendar';
+import { calendarCleanActive, calendarSetActive, calendarStartLoading } from '../../actions/calendar';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
@@ -33,7 +33,12 @@ const localizer = momentLocalizer(moment);
 export const CalendarPage = () => {
 
     const {events, activeEvent} = useSelector(state => state.calendar)
+    const {uid} = useSelector(state => state.auth)
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(calendarStartLoading())
+    }, [dispatch])
     
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
 
@@ -48,14 +53,14 @@ export const CalendarPage = () => {
         localStorage.setItem('lastView', e);
     }
     const onSelectSlot = (e) => {
-        console.log(e)
         dispatch(calendarCleanActive());
     }
     
     const eventStyleGetter = ( event, start, end, isSelected ) => {
-        
+    
+
         const style={
-            backgroundColor: '#367CF7',
+            backgroundColor: (uid === event.user._id) ? '#367CF7' : '#465660',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block',

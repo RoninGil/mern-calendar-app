@@ -1,6 +1,7 @@
 import Swal from "sweetalert2";
 import { fetchNoToken, fetchWithToken } from "../helpers/fetch"
 import { types } from "../types/types";
+import { calendarCleanAll } from "./calendar";
 
 
 
@@ -75,6 +76,7 @@ export const startLogout = () => {
     return (dispatch) => {
         localStorage.clear();
         dispatch(userLogout());
+        dispatch(calendarCleanAll());
     }
 }
 
